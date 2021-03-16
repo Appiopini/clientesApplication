@@ -17,7 +17,7 @@ public class Servico {
     private String descricao;
 
     @ManyToOne
-    @JoinColumn(name = "id cliente")
+    @JoinColumn(name = "id_cliente")
     private Cliente cliente;
 
     @Column
