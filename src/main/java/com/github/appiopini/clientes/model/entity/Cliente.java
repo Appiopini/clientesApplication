@@ -29,3 +29,4 @@ public class Cliente {
         setDataCadastro(LocalDate.now());
     }
 }
+
