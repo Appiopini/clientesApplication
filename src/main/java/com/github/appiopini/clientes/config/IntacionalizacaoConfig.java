@@ -15,7 +15,7 @@ public class IntacionalizacaoConfig {
     @Bean
     public MessageSource messageSource(){
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.setBasename("message");
+        messageSource.setBasename("classpath:messages");
         messageSource.setDefaultEncoding("ISO-8859-1");
         messageSource.setDefaultLocale( Locale.getDefault());
         return messageSource;

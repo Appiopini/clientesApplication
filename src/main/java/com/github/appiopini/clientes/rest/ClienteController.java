@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/clientes")
 public class ClienteController {
@@ -21,7 +23,7 @@ public class ClienteController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Cliente salvat( @RequestBody Cliente cliente) {
+    public Cliente salvat( @RequestBody @Valid Cliente cliente) {
         return repository.save(cliente);
     }
 
@@ -29,7 +31,7 @@ public class ClienteController {
     public Cliente acharPorId( @PathVariable Integer id){
         return repository
                 .findById(id)
-                .orElseThrow( ( ) -> new ResponseStatusException(HttpStatus.NOT_FOUND) );
+                .orElseThrow( ( ) -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado") );
     }
 
     @DeleteMapping("{id}")
@@ -41,12 +43,12 @@ public class ClienteController {
                 repository.delete(cliente);
                 return Void.TYPE;
             })
-            .orElseThrow( ( ) -> new ResponseStatusException(HttpStatus.NOT_FOUND) );
+            .orElseThrow( ( ) -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado") );
     }
 
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void atualizar( @PathVariable Integer id, @RequestBody Cliente clienteatualizado ){
+    public void atualizar( @PathVariable Integer id, @RequestBody @Valid Cliente clienteatualizado ){
         repository
                 .findById(id)
                 .map( cliente -> {
@@ -54,7 +56,7 @@ public class ClienteController {
                     cliente.setCpf(clienteatualizado.getCpf());
                     return repository.save(clienteatualizado);
                 })
-                .orElseThrow( ( ) -> new ResponseStatusException(HttpStatus.NOT_FOUND) );
+                .orElseThrow( ( ) -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado") );
     }
 
 }
