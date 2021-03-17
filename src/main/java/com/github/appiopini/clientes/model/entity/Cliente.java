@@ -4,9 +4,12 @@ package com.github.appiopini.clientes.model.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import lombok.Data;
+import org.hibernate.validator.constraints.br.CPF;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
@@ -21,9 +24,12 @@ public class Cliente {
     private Integer id;
 
     @Column(nullable = false, length = 150)
+    @NotEmpty
     private String nome;
 
     @Column(nullable = false, length = 11)
+    @NotNull
+    @CPF
     private String cpf;
 
     @Column(name = "data_cadastro", updatable = false)
