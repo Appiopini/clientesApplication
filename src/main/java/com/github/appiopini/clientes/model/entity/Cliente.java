@@ -1,12 +1,18 @@
 package com.github.appiopini.clientes.model.entity;
 
+
+import lombok.*;
 import lombok.Data;
+
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Cliente {
 
     @Id
@@ -22,4 +28,9 @@ public class Cliente {
     @Column(name = "data_cadastro")
     private LocalDate dataCadastro;
 
+
+    @PrePersist
+    public void prePersist(){
+        setDataCadastro(LocalDate.now());
+    }
 }
